@@ -5,37 +5,29 @@
         <title></title>
     </head>
     <body>
-        <h2>Add a Cuisine</h2>
-        <form class="" action="/addcuisine" method="post">
-            <label for="type">Type</label>
+        <form class="" action="/editcuisine/{{result.getId}}" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <label for="type">Type (previously {{result.getType}})</label>
             <input type="text" name="type" value="">
-            <label for="spice">Spice</label>
+            <label for="spice">Spice (previously {{result.getSpice}})</label>
             <input type="radio" name="spice" value="1"><label for="1">1</label>
             <input type="radio" name="spice" value="2"><label for="2">2</label>
             <input type="radio" name="spice" value="3"><label for="3">3</label>
             <input type="radio" name="spice" value="4"><label for="4">4</label>
             <input type="radio" name="spice" value="5"><label for="5">5</label>
-            <label for="price">Price</label>
+            <label for="price">Price (previously {{result.getPrice}})</label>
             <input type="radio" name="price" value="1"><label for="1">1</label>
             <input type="radio" name="price" value="2"><label for="2">2</label>
             <input type="radio" name="price" value="3"><label for="3">3</label>
             <input type="radio" name="price" value="4"><label for="4">4</label>
             <input type="radio" name="price" value="5"><label for="5">5</label>
-            <label for="size">Size</label>
+            <label for="size">Size (previously {{result.getSize}})</label>
             <input type="radio" name="size" value="1"><label for="1">1</label>
             <input type="radio" name="size" value="2"><label for="2">2</label>
             <input type="radio" name="size" value="3"><label for="3">3</label>
             <input type="radio" name="size" value="4"><label for="4">4</label>
             <input type="radio" name="size" value="5"><label for="5">5</label>
-            <button type="submit" name="button">ADD IT</button>
+            <button type="submit" name="button">EDIT IT</button>
         </form>
-
-
-
-
-        <h2>Your Current Cuisines</h2>
-        {% for cuisine in result %}
-            <a href="/cuisine/{{cuisine.getId}}">{{cuisine.getType}}</a>
-        {% endfor %}
     </body>
 </html>

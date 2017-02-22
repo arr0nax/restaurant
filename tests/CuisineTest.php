@@ -78,6 +78,29 @@
 
             $this->assertEquals($result, []);
         }
+
+        function test_getById()
+        {
+            $type = 'greek';
+            $spice = 2;
+            $price = 3;
+            $size = 4;
+            $id = null;
+            $test_cuisine = new Cuisine($type, $spice, $price, $size, $id);
+            $test_cuisine->save();
+
+            $type2 = 'roman';
+            $spice2 = 1;
+            $price2 = 4;
+            $size2 = 3;
+            $id2 = null;
+            $test_cuisine2 = new Cuisine($type2, $spice2, $price2, $size2, $id2);
+            $test_cuisine2->save();
+
+            $result = Cuisine::getById($test_cuisine2->getId());
+
+            $this->assertEquals($result, $test_cuisine2);
+        }
     }
 
 

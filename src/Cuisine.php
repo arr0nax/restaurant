@@ -70,6 +70,21 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        static function update($type, $spice, $price, $size, $id)
+        {
+            $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$type}', spice = {$spice}, price = {$price}, size = {$size} WHERE id = {$id};");
+        }
+
+        static function getById($id)
+        {
+            $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines where id = $id");
+            foreach($returned_cuisines as $cuisine)
+            {
+                $new_cuisine = new Cuisine($cuisine['type'], $cuisine['spice'], $cuisine['price'], $cuisine['size'], $id);
+                return $new_cuisine;
+            }
+        }
+
         static function getAll()
         {
             $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines;");
@@ -80,6 +95,12 @@
                 array_push($cuisines, $new_cuisine);
             }
             return $cuisines;
+        }
+
+        static function deleteById($id)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cuisines WHERE id = {$id};");
+
         }
 
         static function deleteAll()

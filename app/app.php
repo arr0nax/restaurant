@@ -20,5 +20,32 @@
         return $app["twig"]->render("root.html.twig", ['result' => $result]);
     });
 
+    $app->post('/addcuisine', function() use($app) {
+        $new_cuisine = new Cuisine($_POST['type'], $_POST['spice'], $_POST['price'], $_POST['size']);
+        $new_cuisine->save();
+        return $app->redirect('/');
+    });
+
+    $app->get('/cuisine/{id}', function($id) use($app) {
+        $result = Cuisine::getById($id);
+        return $app["twig"]->render("cuisine.html.twig", ['result' => $result]);
+    });
+
+    $app->get('/editcuisine/{id}', function($id) use($app) {
+        $result = Cuisine::getById($id);
+        return $app["twig"]->render("editcuisine.html.twig", ['result' => $result]);
+    });
+
+    $app->patch('/editcuisine/{id}', function($id) use($app) {
+        Cuisine::update($_POST['type'], $_POST['spice'], $_POST['price'], $_POST['size'], $id);
+        $result = Cuisine::getById($id);
+        return $app->redirect('/cuisine/'.$id);
+    });
+
+    $app->delete('/deletecuisine/{id}', function($id) use($app) {
+        Cuisine::deleteById($id);
+        return $app->redirect('/');
+    });
+
     return $app;
 ?>
