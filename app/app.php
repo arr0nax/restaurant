@@ -16,7 +16,7 @@
     Request::enableHttpMethodParameterOverride();
 
     $app->get('/', function() use($app) {
-
+        $result = Cuisine::getAll();
         return $app["twig"]->render("root.html.twig", ['result' => $result]);
     });
 

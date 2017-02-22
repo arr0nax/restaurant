@@ -29,7 +29,54 @@
 
             $result = Cuisine::getAll();
 
-            $this->assertEquals($test_cuisine, $result[0]);
+            $this->assertEquals($result[0], $test_cuisine);
+        }
+
+        function test_getAll()
+        {
+            $type = 'greek';
+            $spice = 2;
+            $price = 3;
+            $size = 4;
+            $id = null;
+            $test_cuisine = new Cuisine($type, $spice, $price, $size, $id);
+            $test_cuisine->save();
+
+            $type2 = 'roman';
+            $spice2 = 1;
+            $price2 = 4;
+            $size2 = 3;
+            $id2 = null;
+            $test_cuisine2 = new Cuisine($type2, $spice2, $price2, $size2, $id2);
+            $test_cuisine2->save();
+
+            $result = Cuisine::getAll();
+
+            $this->assertEquals($result, [$test_cuisine, $test_cuisine2]);
+        }
+
+        function test_deleteAll()
+        {
+            $type = 'greek';
+            $spice = 2;
+            $price = 3;
+            $size = 4;
+            $id = null;
+            $test_cuisine = new Cuisine($type, $spice, $price, $size, $id);
+            $test_cuisine->save();
+
+            $type2 = 'roman';
+            $spice2 = 1;
+            $price2 = 4;
+            $size2 = 3;
+            $id2 = null;
+            $test_cuisine2 = new Cuisine($type2, $spice2, $price2, $size2, $id2);
+            $test_cuisine2->save();
+
+            Cuisine::deleteAll();
+            $result = Cuisine::getAll();
+
+            $this->assertEquals($result, []);
         }
     }
 
