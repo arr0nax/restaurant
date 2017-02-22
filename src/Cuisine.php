@@ -70,9 +70,9 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        static function update($type, $spice, $price, $size, $id)
+        function update($type, $spice, $price, $size)
         {
-            $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$type}', spice = {$spice}, price = {$price}, size = {$size} WHERE id = {$id};");
+            $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$type}', spice = {$spice}, price = {$price}, size = {$size} WHERE id = {$this->id};");
         }
 
         static function getById($id)
