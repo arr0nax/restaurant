@@ -106,6 +106,17 @@
             return $restaurants;
         }
 
+        static function getById($id)
+        {
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants where id = {$id};");
+            $restaurants = array();
+            foreach($returned_restaurants as $restaurant)
+            {
+                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['review'], $restaurant['id']);
+                return $new_restaurant;
+            }
+        }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM restaurants");
