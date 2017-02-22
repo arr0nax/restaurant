@@ -114,4 +114,37 @@
 
             $this->assertEquals($result, $test_restaurant2);
         }
+
+        function test_update()
+        {
+            $cuisine_id = 3;
+            $name = 'greek geeks';
+            $spice = 2;
+            $price = 3;
+            $size = 4;
+            $review = 'service was ok, but water had lead in it';
+            $id = null;
+            $test_restaurant = new Restaurant($cuisine_id, $name, $spice, $price, $size, $review, $id);
+            $test_restaurant->save();
+
+            $cuisine_id2 = 2;
+            $name2 = 'roman times';
+            $spice2 = 1;
+            $price2 = 2;
+            $size2 = 1;
+            $review2 = 'large portions, poor quality';
+
+            $test_restaurant->update($cuisine_id2, $name2, $spice2, $price2, $size2, $review2);
+
+            $test_restaurant->setCuisine_id($cuisine_id2);
+            $test_restaurant->setName($name2);
+            $test_restaurant->setSpice($spice2);
+            $test_restaurant->setPrice($price2);
+            $test_restaurant->setSize($size2);
+            $test_restaurant->setReview($review2);
+
+            $result = Restaurant::getAll();
+
+            $this->assertEquals($result[0], $test_restaurant);
+        }
     }

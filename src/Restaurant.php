@@ -94,6 +94,11 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($cuisine_id, $name, $spice, $price, $size, $review)
+        {
+            $GLOBALS['DB']->exec("UPDATE restaurants SET cuisine_id = {$cuisine_id}, name = '{$name}', spice = {$spice}, price = {$price}, size = {$size}, review = '{$review}' WHERE id = {$this->id};");
+        }
+
         static function getAll()
         {
             $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
