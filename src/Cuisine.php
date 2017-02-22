@@ -75,6 +75,18 @@
             $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$type}', spice = {$spice}, price = {$price}, size = {$size} WHERE id = {$this->id};");
         }
 
+        function getRestaurants()
+        {
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants where cuisine_id = {$this->getId()};");
+            $restaurants = array();
+            foreach($returned_restaurants as $restaurant)
+            {
+                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['review'], $restaurant['id']);
+                array_push($restaurants, $new_restaurant);
+            }
+            return $restaurants;
+        }
+
         static function getById($id)
         {
             $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines where id = $id");

@@ -5,28 +5,35 @@
         <title></title>
     </head>
     <body>
-        <form class="" action="/editcuisine/{{cuisine.getId}}" method="post">
+        <h2>Edit a Restaurant</h2>
+        <form class="" action="/editrestaurant/{{restaurant.getId}}" method="post">
             <input type="hidden" name="_method" value="patch">
-            <label for="type">Type (previously {{cuisine.getType}})</label>
-            <input type="text" name="type" value="">
-            <label for="spice">Spice (previously {{cuisine.getSpice}})</label>
+            <label for="name">Name (previously {{restaurant.getName}})</label>
+            <input type="text" name="name" value="">
+            <select name="cuisine_id">
+            {% for result in cuisine %}
+                <option value ='{{result.getId}}'>{{result.getType}}</option>
+            {% endfor %}
+            </select>
+            <label for="spice">Spice (previously {{restaurant.getSpice}})</label>
             <input type="radio" name="spice" value="1"><label for="1">1</label>
             <input type="radio" name="spice" value="2"><label for="2">2</label>
             <input type="radio" name="spice" value="3"><label for="3">3</label>
             <input type="radio" name="spice" value="4"><label for="4">4</label>
             <input type="radio" name="spice" value="5"><label for="5">5</label>
-            <label for="price">Price (previously {{cuisine.getPrice}})</label>
+            <label for="price">Price (previously {{restaurant.getPrice}})</label>
             <input type="radio" name="price" value="1"><label for="1">1</label>
             <input type="radio" name="price" value="2"><label for="2">2</label>
             <input type="radio" name="price" value="3"><label for="3">3</label>
             <input type="radio" name="price" value="4"><label for="4">4</label>
             <input type="radio" name="price" value="5"><label for="5">5</label>
-            <label for="size">Size (previously {{cuisine.getSize}})</label>
+            <label for="size">Size (previously {{restaurant.getSize}})</label>
             <input type="radio" name="size" value="1"><label for="1">1</label>
             <input type="radio" name="size" value="2"><label for="2">2</label>
             <input type="radio" name="size" value="3"><label for="3">3</label>
             <input type="radio" name="size" value="4"><label for="4">4</label>
             <input type="radio" name="size" value="5"><label for="5">5</label>
+            <textarea name="review" rows="8" cols="40">{{restaurant.getReview}}</textarea>
             <button type="submit" name="button">EDIT IT</button>
         </form>
     </body>

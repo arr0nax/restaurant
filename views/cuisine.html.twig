@@ -2,18 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{{result.getType}}</title>
+        <title>{{cuisine.getType}}</title>
     </head>
     <body>
-        <h2>{{result.getType}} Food!</h2>
-        <h3>Price Level: {{result.getPrice}}</h3>
-        <h3>Size Level: {{result.getSize}}</h3>
-        <h3>Spice Level: {{result.getSpice}}</h3>
+        <h2>{{cuisine.getType}} Food!</h2>
+        <h3>Price Level: {{cuisine.getPrice}}</h3>
+        <h3>Size Level: {{cuisine.getSize}}</h3>
+        <h3>Spice Level: {{cuisine.getSpice}}</h3>
         <a href="/">Go home</a>
-        <a href="/editcuisine/{{result.getId}}">Edit This Cuisine</a>
-        <form class="" action="/deletecuisine/{{result.getId}}" method="post">
+        <a href="/editcuisine/{{cuisine.getId}}">Edit This Cuisine</a>
+        <form class="" action="/deletecuisine/{{cuisine.getId}}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" name="button">Delete This Cuisine</button>
         </form>
+        <h2>Restaurants that serve this type of food</h2>
+        {% for restaurant in restaurants %}
+            <a href="/restaurant/{{restaurant.getId}}">{{restaurant.getName}}</a>
+        {% endfor %}
     </body>
 </html>
