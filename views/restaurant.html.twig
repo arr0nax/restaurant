@@ -5,17 +5,28 @@
         <title>{{restaurant.getName}}</title>
     </head>
     <body>
+        <p>
+            {{user.getUsername}}
+        </p>
         <h2>{{restaurant.getName}}</h2>
         <h3>Type of Food: {{cuisine.getType}}</h3>
         <h3>Price Level: {{restaurant.getPrice}}</h3>
         <h3>Size Level: {{restaurant.getSize}}</h3>
         <h3>Spice Level: {{restaurant.getSpice}}</h3>
-        <h3>Your Review: {{restaurant.getReview}}</h3>
         <a href="/">Go home</a>
         <a href="/editrestaurant/{{restaurant.getId}}">Edit This Restaurant</a>
         <form class="" action="/deleterestaurant/{{restaurant.getId}}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" name="button">Delete This Restaurant</button>
+        </form>
+        <h2>Reviews</h2>
+        {% for review in reviews%}
+            {{review.getReview}}
+        {% endfor %}
+        <form class="" action="/writereview/{{restaurant.getId}}" method="post">
+            <label for="review">Leave a review</label>
+            <input type="text" name="review" value="">
+            <button type="submit" name="button">Leave it!</button>
         </form>
     </body>
 </html>

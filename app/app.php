@@ -3,6 +3,8 @@
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Cuisine.php";
     require_once __DIR__."/../src/Restaurant.php";
+    require_once __DIR__."/../src/User.php";
+    require_once __DIR__."/../src/Review.php";
 
     $server = 'mysql:host=localhost:8889;dbname=restaurant';
     $username = 'root';
@@ -16,10 +18,26 @@
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
 
+    session_start();
+    if (empty($_SESSION['user'])) {
+        $_SESSION['user'] = new User('annonymoose', '');
+    };
+
     $app->get('/', function() use($app) {
         $cuisine = Cuisine::getAll();
         $restaurant = Restaurant::getAll();
-        return $app["twig"]->render("root.html.twig", ['cuisine' => $cuisine, 'restaurant' => $restaurant]);
+        return $app["twig"]->render("root.html.twig", ['cuisine' => $cuisine, 'restaurant' => $restaurant, 'user' => $_SESSION['user']]);
+    });
+
+    $app->post('/signup', function() use($app) {
+        $new_user = new User($_POST['username'], $_POST['password']);
+        $new_user->save();
+        return $app->redirect('/');
+    });
+
+    $app->post('/login', function() use($app) {
+        User::login($_POST['username'],$_POST['password']);
+        return $app->redirect('/');
     });
 
     $app->post('/addcuisine', function() use($app) {
@@ -29,7 +47,7 @@
     });
 
     $app->post('/addrestaurant', function() use($app) {
-        $new_restaurant = new Restaurant($_POST['cuisine_id'], $_POST['name'], $_POST['spice'], $_POST['price'], $_POST['size'], $_POST['review']);
+        $new_restaurant = new Restaurant($_POST['cuisine_id'], $_POST['name'], $_POST['spice'], $_POST['price'], $_POST['size']);
         $new_restaurant->save();
         return $app->redirect('/');
     });
@@ -43,7 +61,17 @@
     $app->get('/restaurant/{id}', function($id) use($app) {
         $restaurant = Restaurant::getById($id);
         $cuisine = Cuisine::getById($restaurant->getCuisine_id());
-        return $app["twig"]->render("restaurant.html.twig", ['restaurant' => $restaurant, 'cuisine' => $cuisine]);
+        $reviews = Review::getAll();
+        return $app["twig"]->render("restaurant.html.twig", ['restaurant' => $restaurant, 'cuisine' => $cuisine, 'user' => $_SESSION['user'], 'reviews' => $reviews]);
+    });
+
+    $app->post('/writereview/{id}', function($id) use($app) {
+        $review = $_POST['review'];
+        $user_id = $_SESSION['user']->getId();
+        $restaurant_id = $id;
+        $new_review = new Review($review, $user_id, $restaurant_id);
+        $new_review->save();
+        return $app->redirect('/restaurant/'.$id);
     });
 
     $app->get('/editcuisine/{id}', function($id) use($app) {
@@ -65,12 +93,17 @@
 
     $app->patch('/editrestaurant/{id}', function($id) use($app) {
         $restaurant = Restaurant::getById($id);
-        $restaurant->update($_POST['cuisine_id'], $_POST['name'], $_POST['spice'], $_POST['price'], $_POST['size'], $_POST['review']);
+        $restaurant->update($_POST['cuisine_id'], $_POST['name'], $_POST['spice'], $_POST['price'], $_POST['size']);
         return $app->redirect('/restaurant/'.$id);
     });
 
     $app->delete('/deletecuisine/{id}', function($id) use($app) {
         Cuisine::deleteById($id);
+        return $app->redirect('/');
+    });
+
+    $app->delete('/deleterestaurant/{id}', function($id) use($app) {
+        Restaurant::deleteById($id);
         return $app->redirect('/');
     });
 

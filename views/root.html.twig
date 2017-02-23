@@ -5,6 +5,23 @@
         <title></title>
     </head>
     <body>
+        <p>
+            {{user.getUsername}}
+        </p>
+        <form class="" style='float:right;' action="/login" method="post">
+            <label for="username">username</label>
+            <input type="text" name="username" value="">
+            <label for="password">password</label>
+            <input type="text" name="password" value="">
+            <button type="submit" name="button">log in</button>
+        </form>
+        <form class="" style='float:left' action="/signup" method="post">
+            <label for="username">username</label>
+            <input type="text" name="username" value="">
+            <label for="password">password</label>
+            <input type="text" name="password" value="">
+            <button type="submit" name="button">sign up</button>
+        </form>
         <h2>Add a Cuisine</h2>
         <form class="" action="/addcuisine" method="post">
             <label for="type">Type</label>
@@ -57,7 +74,6 @@
             <input type="radio" name="size" value="3"><label for="3">3</label>
             <input type="radio" name="size" value="4"><label for="4">4</label>
             <input type="radio" name="size" value="5"><label for="5">5</label>
-            <textarea name="review" rows="8" cols="40"></textarea>
             <button type="submit" name="button">ADD IT</button>
         </form>
 

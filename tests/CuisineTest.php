@@ -176,9 +176,8 @@
             $spice = 2;
             $price = 3;
             $size = 4;
-            $review = 'service was ok, but water had lead in it';
             $id = null;
-            $test_restaurant = new Restaurant($cuisine_id, $name, $spice, $price, $size, $review, $id);
+            $test_restaurant = new Restaurant($cuisine_id, $name, $spice, $price, $size, $id);
             $test_restaurant->save();
 
             $cuisine_id2 = $test_cuisine2->getId();
@@ -186,9 +185,8 @@
             $spice2 = 1;
             $price2 = 2;
             $size2 = 1;
-            $review2 = 'large portions, poor quality';
             $id2 = null;
-            $test_restaurant2 = new Restaurant($cuisine_id2, $name2, $spice2, $price2, $size2, $review2, $id2);
+            $test_restaurant2 = new Restaurant($cuisine_id2, $name2, $spice2, $price2, $size2, $id2);
             $test_restaurant2->save();
 
             $result = $test_cuisine->getRestaurants();

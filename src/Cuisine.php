@@ -81,7 +81,7 @@
             $restaurants = array();
             foreach($returned_restaurants as $restaurant)
             {
-                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['review'], $restaurant['id']);
+                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['id']);
                 array_push($restaurants, $new_restaurant);
             }
             return $restaurants;

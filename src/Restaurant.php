@@ -7,16 +7,14 @@
         private $spice;
         private $price;
         private $size;
-        private $review;
 
-        function __construct($cuisine_id, $name, $spice, $price, $size, $review, $id = null)
+        function __construct($cuisine_id, $name, $spice, $price, $size, $id = null)
         {
             $this->cuisine_id = $cuisine_id;
             $this->name = $name;
             $this->spice = $spice;
             $this->price = $price;
             $this->size = $size;
-            $this->review = $review;
             $this->id = $id;
         }
 
@@ -68,16 +66,6 @@
             $this->size = $size;
         }
 
-        function getReview()
-        {
-            return $this->review;
-        }
-
-        function setReview($review)
-        {
-            $this->review = $review;
-        }
-
         function getId()
         {
             return $this->id;
@@ -90,13 +78,13 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO restaurants (cuisine_id, name, price, spice, size, review) VALUES ({$this->getCuisine_id()},'{$this->getName()}', {$this->getPrice()}, {$this->getSpice()}, {$this->getSize()}, '{$this->getReview()}');");
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (cuisine_id, name, price, spice, size) VALUES ({$this->getCuisine_id()},'{$this->getName()}', {$this->getPrice()}, {$this->getSpice()}, {$this->getSize()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update($cuisine_id, $name, $spice, $price, $size, $review)
+        function update($cuisine_id, $name, $spice, $price, $size)
         {
-            $GLOBALS['DB']->exec("UPDATE restaurants SET cuisine_id = {$cuisine_id}, name = '{$name}', spice = {$spice}, price = {$price}, size = {$size}, review = '{$review}' WHERE id = {$this->id};");
+            $GLOBALS['DB']->exec("UPDATE restaurants SET cuisine_id = {$cuisine_id}, name = '{$name}', spice = {$spice}, price = {$price}, size = {$size} WHERE id = {$this->id};");
         }
 
         static function getAll()
@@ -105,7 +93,7 @@
             $restaurants = array();
             foreach($returned_restaurants as $restaurant)
             {
-                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['review'], $restaurant['id']);
+                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['id']);
                 array_push($restaurants, $new_restaurant);
             }
             return $restaurants;
@@ -117,7 +105,7 @@
             $restaurants = array();
             foreach($returned_restaurants as $restaurant)
             {
-                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['review'], $restaurant['id']);
+                $new_restaurant = new Restaurant($restaurant['cuisine_id'], $restaurant['name'], $restaurant['spice'], $restaurant['price'], $restaurant['size'], $restaurant['id']);
                 return $new_restaurant;
             }
         }
@@ -125,6 +113,11 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM restaurants");
+        }
+
+        static function deleteById($id)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants where id = {$id}");
         }
     }
 
