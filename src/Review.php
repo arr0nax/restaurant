@@ -10,6 +10,7 @@
         {
             $this->review = $review;
             $this->user_id = $user_id;
+            $this->restaurant_id = $restaurant_id;
             $this->id = $id;
         }
 
@@ -56,6 +57,7 @@
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO reviews (review, user_id, restaurant_id) VALUES ('{$this->getReview()}', {$this->getUser_id()}, {$this->getRestaurant_id()});");
+            $this->setId($GLOBALS['DB']->lastInsertId());
         }
 
         static function getByRestaurant($id)

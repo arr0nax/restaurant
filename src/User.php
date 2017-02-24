@@ -44,7 +44,7 @@
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO users (username, password) VALUES ('{$this->getUsername()}', '{$this->getPassword()}');");
-            $this->id = $GLOBALS['DB']->lastInsertId();
+            $this->setId($GLOBALS['DB']->lastInsertId());
         }
 
         static function login($username, $password)
@@ -57,6 +57,27 @@
                 }
             }
 
+        }
+
+        static function getReviewsById($id)
+        {
+            $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews WHERE user_id = {$id}");
+            $reviews = array();
+            foreach ($returned_reviews as $review)
+            {
+                $new_review = new Review($review['review'], $review['user_id'], $review['restaurant_id'], $review['id']);
+                array_push($reviews, $new_review);
+            }
+            return $reviews;
+        }
+
+        static function getById($id)
+        {
+            $returned_user = $GLOBALS['DB']->query("SELECT * FROM users WHERE id = {$id};");
+            foreach ($returned_user as $user) {
+                $new_user = new User ($user['username'], $user['password'], $user['id']);
+                return $new_user;
+            }
         }
 
         static function getAll()

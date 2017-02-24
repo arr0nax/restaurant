@@ -21,6 +21,7 @@
     session_start();
     if (empty($_SESSION['user'])) {
         $_SESSION['user'] = new User('annonymoose', '');
+        $_SESSION['user']->save();
     };
 
     $app->get('/', function() use($app) {
@@ -61,15 +62,17 @@
     $app->get('/restaurant/{id}', function($id) use($app) {
         $restaurant = Restaurant::getById($id);
         $cuisine = Cuisine::getById($restaurant->getCuisine_id());
-        $reviews = Review::getAll();
-        return $app["twig"]->render("restaurant.html.twig", ['restaurant' => $restaurant, 'cuisine' => $cuisine, 'user' => $_SESSION['user'], 'reviews' => $reviews]);
+        $reviews = Review::getByRestaurant($id);
+        $users = User::getAll();
+        return $app["twig"]->render("restaurant.html.twig", ['restaurant' => $restaurant, 'cuisine' => $cuisine, 'user' => $_SESSION['user'], 'users' => $users, 'reviews' => $reviews]);
     });
 
     $app->post('/writereview/{id}', function($id) use($app) {
         $review = $_POST['review'];
         $user_id = $_SESSION['user']->getId();
         $restaurant_id = $id;
-        $new_review = new Review($review, $user_id, $restaurant_id);
+        $review_id = null;
+        $new_review = new Review($review, $user_id, $restaurant_id, $review_id);
         $new_review->save();
         return $app->redirect('/restaurant/'.$id);
     });
@@ -105,6 +108,13 @@
     $app->delete('/deleterestaurant/{id}', function($id) use($app) {
         Restaurant::deleteById($id);
         return $app->redirect('/');
+    });
+
+    $app->get('/profile/{id}', function($id) use($app) {
+        $user_reviews = User::getReviewsById($id);
+        $user = User::getById($id);
+        $restaurants = Restaurant::getAll();
+        return $app["twig"]->render("profile.html.twig", ['user_reviews' => $user_reviews, 'user' => $user, 'restaurants' => $restaurants]);
     });
 
     return $app;

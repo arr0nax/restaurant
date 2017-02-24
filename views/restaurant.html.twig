@@ -3,10 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>{{restaurant.getName}}</title>
+  <link rel="stylesheet" href="../css/styles.css" media="screen" title="no title" charset="utf-8">
     </head>
     <body>
         <p>
-            {{user.getUsername}}
+            hello {{user.getUsername}}
         </p>
         <h2>{{restaurant.getName}}</h2>
         <h3>Type of Food: {{cuisine.getType}}</h3>
@@ -21,6 +22,7 @@
         </form>
         <h2>Reviews</h2>
         {% for review in reviews%}
+            <a href="/profile/{{review.getUser_id}}">{{(user.getById(review.getUser_id)).getUsername}}</a>
             {{review.getReview}}
         {% endfor %}
         <form class="" action="/writereview/{{restaurant.getId}}" method="post">

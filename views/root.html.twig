@@ -1,93 +1,139 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <p>
-            {{user.getUsername}}
-        </p>
-        <form class="" style='float:right;' action="/login" method="post">
-            <label for="username">username</label>
-            <input type="text" name="username" value="">
-            <label for="password">password</label>
-            <input type="text" name="password" value="">
-            <button type="submit" name="button">log in</button>
-        </form>
-        <form class="" style='float:left' action="/signup" method="post">
-            <label for="username">username</label>
-            <input type="text" name="username" value="">
-            <label for="password">password</label>
-            <input type="text" name="password" value="">
-            <button type="submit" name="button">sign up</button>
-        </form>
-        <h2>Add a Cuisine</h2>
-        <form class="" action="/addcuisine" method="post">
-            <label for="type">Type</label>
-            <input type="text" name="type" value="">
-            <label for="spice">Spice</label>
-            <input type="radio" name="spice" value="1"><label for="1">1</label>
-            <input type="radio" name="spice" value="2"><label for="2">2</label>
-            <input type="radio" name="spice" value="3"><label for="3">3</label>
-            <input type="radio" name="spice" value="4"><label for="4">4</label>
-            <input type="radio" name="spice" value="5"><label for="5">5</label>
-            <label for="price">Price</label>
-            <input type="radio" name="price" value="1"><label for="1">1</label>
-            <input type="radio" name="price" value="2"><label for="2">2</label>
-            <input type="radio" name="price" value="3"><label for="3">3</label>
-            <input type="radio" name="price" value="4"><label for="4">4</label>
-            <input type="radio" name="price" value="5"><label for="5">5</label>
-            <label for="size">Size</label>
-            <input type="radio" name="size" value="1"><label for="1">1</label>
-            <input type="radio" name="size" value="2"><label for="2">2</label>
-            <input type="radio" name="size" value="3"><label for="3">3</label>
-            <input type="radio" name="size" value="4"><label for="4">4</label>
-            <input type="radio" name="size" value="5"><label for="5">5</label>
-            <button type="submit" name="button">ADD IT</button>
-        </form>
-
-        <h2>Add a Restaurant</h2>
-        <form class="" action="/addrestaurant" method="post">
-            <label for="name">Name</label>
-            <input type="text" name="name" value="">
-            <select name="cuisine_id">
-            {% for result in cuisine %}
-                <option value ='{{result.getId}}'>{{result.getType}}</option>
-            {% endfor %}
-            </select>
-            <label for="spice">Spice</label>
-            <input type="radio" name="spice" value="1"><label for="1">1</label>
-            <input type="radio" name="spice" value="2"><label for="2">2</label>
-            <input type="radio" name="spice" value="3"><label for="3">3</label>
-            <input type="radio" name="spice" value="4"><label for="4">4</label>
-            <input type="radio" name="spice" value="5"><label for="5">5</label>
-            <label for="price">Price</label>
-            <input type="radio" name="price" value="1"><label for="1">1</label>
-            <input type="radio" name="price" value="2"><label for="2">2</label>
-            <input type="radio" name="price" value="3"><label for="3">3</label>
-            <input type="radio" name="price" value="4"><label for="4">4</label>
-            <input type="radio" name="price" value="5"><label for="5">5</label>
-            <label for="size">Size</label>
-            <input type="radio" name="size" value="1"><label for="1">1</label>
-            <input type="radio" name="size" value="2"><label for="2">2</label>
-            <input type="radio" name="size" value="3"><label for="3">3</label>
-            <input type="radio" name="size" value="4"><label for="4">4</label>
-            <input type="radio" name="size" value="5"><label for="5">5</label>
-            <button type="submit" name="button">ADD IT</button>
-        </form>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
 
 
 
 
-        <h2>Your Current Cuisines</h2>
+  <div class="inline-block">
+
+    <h3 class="inline">
+      hello {{user.getUsername}}
+    </h3>
+    <h3>LOG IN:  </h3>
+    <form class="text-align-right" action="/login" method="post">
+      <nobr>
+        <label for="username">username</label>
+        <input type="text" name="username" value="">
+        <label for="password">password</label>
+        <input type="text" name="password" value="">
+        <button type="submit" name="button">log in</button>
+      </nobr>
+    </form>
+  </div>
+  <h1>PERSONAL SOCIAL RESTAURANT COMPLETE</h1>
+  <div class="inline-block">
+
+    <h3>SIGN UP:  </h3>
+    <form class="" action="/signup" method="post">
+      <nobr>
+        <label for="username">username</label>
+        <input type="text" name="username" value="">
+        <label for="password">password</label>
+        <input type="text" name="password" value="">
+        <button type="submit" name="button">sign up</button>
+      </nobr>
+    </form>
+  </div>
+  <div class="inline-block">
+
+    <h3>Add a Cuisine</h3>
+    <form class="" action="/addcuisine" method="post">
+      <label for="type">Type</label>
+      <input type="text" name="type" value="">
+      <label for="spice">Spice</label>
+      <select class="" name="spice">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="price">Price</label>
+      <select class="" name="price">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="Size">Size</label>
+      <select class="" name="size">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button type="submit" name="button">ADD IT</button>
+    </form>
+  </div>
+  <div class="inline-block">
+
+    <h3>Add a Restaurant</h3>
+    <form class="" action="/addrestaurant" method="post">
+      <label for="name">Name</label>
+      <input type="text" name="name" value="">
+      <label for="cuisine_id">Type</label>
+      <select name="cuisine_id">
         {% for result in cuisine %}
-            <a href="/cuisine/{{result.getId}}">{{result.getType}}</a>
+        <option value ='{{result.getId}}'>{{result.getType}}</option>
         {% endfor %}
+      </select>
+      <label for="spice">Spice</label>
+      <select class="" name="spice">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="price">Price</label>
+      <select class="" name="price">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <label for="Size">Size</label>
+      <select class="" name="size">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button type="submit" name="button">ADD IT</button>
+    </form>
+  </div>
 
-        <h2>Your Current Restaurants</h2>
-        {% for result in restaurant %}
-            <a href="/restaurant/{{result.getId}}">{{result.getName}}</a>
-        {% endfor %}
-    </body>
+
+
+  <div class="float-left">
+
+    <h3>Your Current Cuisines</h3>
+    <ul>
+
+      {% for result in cuisine %}
+      <li>  <a href="/cuisine/{{result.getId}}">{{result.getType}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="float-right">
+
+    <h3>Your Current Restaurants</h3>
+    <ul>
+
+      {% for result in restaurant %}
+      <li>  <a href="/restaurant/{{result.getId}}">{{result.getName}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
 </html>
